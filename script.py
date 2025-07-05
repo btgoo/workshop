@@ -1,18 +1,35 @@
 import psutil
 import os
 
-print("CPU usage (%):", psutil.cpu_percent(interval=1))
-current_dir_stats = psutil.disk_usage(os.getcwd())
-print(f"Total disk space: {current_dir_stats.total / (1024**3):.2f} GB")
-print(f"Used disk space: {current_dir_stats.used / (1024**3):.2f} GB")
-print(f"Free disk space: {current_dir_stats.free / (1024**3):.2f} GB")
-print(f"Percentage used: {current_dir_stats.percent}%\n")
+def bytes_to_gb(bytes_value):
+    """Convert bytes to gigabytes."""
+    return bytes_value / (1024 ** 3)
 
-mem_info = psutil.virtual_memory()
+def display_cpu_usage():
+    cpu_usage = psutil.cpu_percent(interval=1)
+    print(f"CPU Usage: {cpu_usage}%")
 
-# Print various RAM statistics
-print(f"Total RAM: {mem_info.total / (1024**3):.2f} GB")
-print(f"Available RAM: {mem_info.available / (1024**3):.2f} GB")
-print(f"Used RAM: {mem_info.used / (1024**3):.2f} GB")
-print(f"Free RAM: {mem_info.free / (1024**3):.2f} GB")
-print(f"RAM Usage Percentage: {mem_info.percent}%")
+def display_disk_usage():
+    disk_stats = psutil.disk_usage(os.getcwd())
+    print("\nDisk Usage:")
+    print(f"  Total: {bytes_to_gb(disk_stats.total):.2f} GB")
+    print(f"  Used: {bytes_to_gb(disk_stats.used):.2f} GB")
+    print(f"  Free: {bytes_to_gb(disk_stats.free):.2f} GB")
+    print(f"  Usage Percentage: {disk_stats.percent}%")
+
+def display_memory_usage():
+    mem_stats = psutil.virtual_memory()
+    print("\nMemory (RAM) Usage:")
+    print(f"  Total: {bytes_to_gb(mem_stats.total):.2f} GB")
+    print(f"  Available: {bytes_to_gb(mem_stats.available):.2f} GB")
+    print(f"  Used: {bytes_to_gb(mem_stats.used):.2f} GB")
+    print(f"  Free: {bytes_to_gb(mem_stats.free):.2f} GB")
+    print(f"  Usage Percentage: {mem_stats.percent}%")
+
+def main():
+    display_cpu_usage()
+    display_disk_usage()
+    display_memory_usage()
+
+if __name__ == "__main__":
+    main()
