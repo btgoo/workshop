@@ -10,7 +10,6 @@ print(f"Percentage used: {current_dir_stats.percent}%\n")
 
 mem_info = psutil.virtual_memory()
 
-# Print various RAM statistics
 print(f"Total RAM: {mem_info.total / (1024**3):.2f} GB")
 print(f"Available RAM: {mem_info.available / (1024**3):.2f} GB")
 print(f"Used RAM: {mem_info.used / (1024**3):.2f} GB")
